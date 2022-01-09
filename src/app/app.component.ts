@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +8,30 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class AppComponent {
 
-  registrationForm = new FormGroup({
-    userName: new FormControl('Sujan'),
-    password: new FormControl(''),
-    confirmPassword: new FormControl(''),
-    address: new FormGroup({
-      city:new FormControl(''),
-      state:new FormControl(''),
-      postalCode:new FormControl('')
-    })
+  constructor(private fb: FormBuilder) {}
+
+  registrationForm =this.fb.group({
+     userName: ['Sujan'],
+     password: [''],
+     confirmPassword:[''],
+     address: this.fb.group({
+       city: [''],
+       state: [''],
+       postalCode: ['']
+     })
   });
+
+  
+  // registrationForm = new FormGroup({
+  //   userName: new FormControl('Sujan'),
+  //   password: new FormControl(''),
+  //   confirmPassword: new FormControl(''),
+  //   address: new FormGroup({
+  //     city:new FormControl(''),
+  //     state:new FormControl(''),
+  //     postalCode:new FormControl('')
+  //   })
+  // });
 
 
   loadApiData(){
