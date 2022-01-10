@@ -22,7 +22,7 @@ export class AppComponent {
                   [
                     Validators.required, 
                     Validators.minLength(3),
-                    forbiddenNameValidator
+                    forbiddenNameValidator(/admin/)
                   ]
                ],
      password: [''],
