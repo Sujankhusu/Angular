@@ -4,7 +4,17 @@
     {{registrationForm.value | json}}
     <div class="form-group">
       <label>Username</label>
-      <input formControlName="userName" type="text" class="form-control">
+      <input [class.is-invalid]="f['userName'].invalid &&
+                                 f['userName'].touched " 
+              formControlName="userName" 
+              type="text" 
+              class="form-control">
+     <!-- <small [class.d-none]="f['userName'].valid || f['userName'].untouched" class="text-danger">Username is required</small> -->
+      <div *ngIf="f['userName'].invalid && f['userName'].touched ">
+         <small *ngIf="f['userName'].errors && f['userName'].errors['required']"  class="text-danger">Username is required</small>
+         <small *ngIf="f['userName'].errors && f['userName'].errors['minlength']" class="text-danger">Username must be at least three characters</small>
+      </div>
+    
     </div>
 
     <div class="form-group">
