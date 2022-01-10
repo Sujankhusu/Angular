@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, AbstractControl  } from '@angular/forms';
+import { forbiddenNameValidator } from './shared/user-name.validator';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class AppComponent {
      userName: ['', 
                   [
                     Validators.required, 
-                    Validators.minLength(3)
+                    Validators.minLength(3),
+                    forbiddenNameValidator
                   ]
                ],
      password: [''],
