@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, AbstractControl  } from '@angular/forms';
+import { PasswordValidator } from './shared/password.validator';
 import { forbiddenNameValidator } from './shared/user-name.validator';
 
 
@@ -15,24 +16,34 @@ export class AppComponent {
   get f(): { [key: string]: AbstractControl } {
     return this.registrationForm.controls;
   }
+  
+  
 
 
-  registrationForm =this.formBuilder.group({
-     userName: ['', 
-                  [
-                    Validators.required, 
-                    Validators.minLength(3),
-                    forbiddenNameValidator(/admin/)
-                  ]
-               ],
-     password: [''],
-     confirmPassword:[''],
-     address: this.formBuilder.group({
-       city: [''],
-       state: [''],
-       postalCode: ['']
-     })
-  });
+  registrationForm =this.formBuilder.group(
+    {
+        userName: ['', 
+                      [
+                        Validators.required, 
+                        Validators.minLength(3),
+                        forbiddenNameValidator(/admin/)
+                      ]
+                  ],
+        password: [''],
+        confirmPassword:[''],
+        address: this.formBuilder.group(
+          {
+          city: [''],
+          state: [''],
+          postalCode: ['']
+          }
+        )
+    },
+    {
+      validator: PasswordValidator
+    }
+  
+  );
   
 
   

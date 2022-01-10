@@ -11,7 +11,10 @@
               class="form-control">
      <!-- <small [class.d-none]="f['userName'].valid || f['userName'].untouched" class="text-danger">Username is required</small> -->
       <div *ngIf="f['userName'].invalid && f['userName'].touched ">
-         <small *ngIf="f['userName'].errors && f['userName'].errors['required']"  class="text-danger">Username is required</small>
+         <small *ngIf="f['userName'].errors && f['userName'].errors['required']"  
+                 class="text-danger" >
+                 Username is required
+          </small>
          <small *ngIf="f['userName'].errors && f['userName'].errors['minlength']" class="text-danger">Username must be at least three characters</small>
          <small *ngIf="f['userName'].errors && f['userName'].errors['forbiddenName']" class="text-danger">{{f['userName'].errors['forbiddenName'].value}} Username not allowed</small>
       </div>
@@ -25,7 +28,8 @@
 
     <div class="form-group">
       <label>Confirm Password</label>
-      <input formControlName="confirmPassword" type="password" class="form-control">
+      <input [class.is-invalid]="registrationForm.errors && registrationForm.errors['misMatch']" formControlName="confirmPassword" type="password" class="form-control">
+       <small class="text-danger" *ngIf="registrationForm.errors && registrationForm.errors['misMatch']">Password do not match</small>
     </div>
 
   <div formGroupName="address">
