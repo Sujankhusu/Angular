@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, AbstractControl, FormGroup, FormArray  } from '@angular/forms';
+import { RegistrationService } from './registration.service';
 import { PasswordValidator } from './shared/password.validator';
 import { forbiddenNameValidator } from './shared/user-name.validator';
-
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
 
   registrationForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder, private _registrationService: RegistrationService) {}
 
   get f(): { [key: string]: AbstractControl } {
     return this.registrationForm.controls;
@@ -107,6 +107,15 @@ ngOnInit(): void {
          postalCode: '123456'
        }
     });
+  }
+
+  onSubmit(){
+    console.log(this.registrationForm.value);
+    this._registrationService.register(this.registrationForm.value)
+      .subscribe(
+         response => console.log('Success!' , response)
+         
+      );
   }
 }
 
