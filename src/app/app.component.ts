@@ -13,6 +13,8 @@ export class AppComponent implements OnInit {
 
   registrationForm!: FormGroup;
 
+  submitted = false;
+
   constructor(private formBuilder: FormBuilder, private _registrationService: RegistrationService) {}
 
   get f(): { [key: string]: AbstractControl } {
@@ -111,11 +113,17 @@ ngOnInit(): void {
 
   onSubmit(){
     console.log(this.registrationForm.value);
+    this.submitted = true;
     this._registrationService.register(this.registrationForm.value)
       .subscribe(
          response => console.log('Success!' , response)
          
       );
+  }
+
+  onReset(): void {
+    this.submitted = false;
+    this.registrationForm.reset();
   }
 }
 

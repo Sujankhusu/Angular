@@ -1,0 +1,141 @@
+<nav class="navbar navbar-light bg-primary">
+    <div class="container">
+        <h1 style="color:aliceblue">Angular CRUD</h1>
+        <div class="d-flex">
+            <button  (click)="clickAddUser()" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success">Add User</button>
+        </div>
+    </div>
+  </nav>
+  
+  <table class="table mt-3">
+    <thead>
+        <tr>
+            <th scope="col">User ID</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Postal Code</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of userData">
+            <td >{{row.id}}</td>
+            <td >{{row.userName}}</td>
+            <td >{{row.email}}</td>
+            <td  >{{row.city}}</td>
+            <td >{{row.state}}</td>
+            <td >{{row.postalCode}}</td>
+           <td>
+               <button class="btn btn-info" type="button"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)=onEdit(row)>Edit</button>
+               <button (click)="deleteUser(row)" class="btn btn-danger mx-3">Delete</button>
+           </td>
+        </tr>
+    </tbody>
+  </table>
+  
+  
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Registration Form</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+            <!-- <h2>Registrstion Form</h2> -->
+            <form [formGroup]= "registrationForm" (ngSubmit)="onSubmit()">
+              <!-- {{registrationForm.value | json}} -->
+              <div class="form-group">
+                <label>Username</label>
+                <input [class.is-invalid]="f['userName'].invalid &&
+                                           f['userName'].touched " 
+                        formControlName="userName" 
+                        type="text" 
+                        class="form-control">
+               <!-- <small [class.d-none]="f['userName'].valid || f['userName'].untouched" class="text-danger">Username is required</small> -->
+                <div *ngIf="f['userName'].invalid && f['userName'].touched ">
+                   <small *ngIf="f['userName'].errors && f['userName'].errors['required']"  
+                           class="text-danger" >
+                           Username is required
+                    </small>
+                   <small *ngIf="f['userName'].errors && f['userName'].errors['minlength']" class="text-danger">Username must be at least three characters</small>
+                   <small *ngIf="f['userName'].errors && f['userName'].errors['forbiddenName']" class="text-danger">{{f['userName'].errors['forbiddenName'].value}} Username not allowed</small>
+                </div>
+              </div>
+          
+              <div class="form-group">
+                <label>Email</label>
+                <button type="button" class="btn btn-secondary btn-sm m-2" (click)="addAlternateEmail()">Add E-mail</button>
+                <input [class.is-invalid]="email.invalid && email.touched" formControlName="email" type="text" class="form-control">
+                <small class="text-danger" [class.d-none]="email.valid || email.untouched">Email is required</small>
+                <div formArrayName="alternateEmails" *ngFor="let email of alternateEmails.controls; let i=index">
+                  <input type="text" class="form-control my-1" [formControlName]="i">
+                  <!-- <button type="button" class="btn btn-secondary btn-sm m-2" (click)="removeAlternateEmail(i)" *ngIf="alternateEmails.length > 1">Remove E-mail</button> -->
+          
+                </div>
+                
+              </div>
+          
+              <div class="form-check mb-3">
+                <input class="form-check-input" formControlName="subscribe" type="checkbox">
+                <label class="form-check-label">
+                  Send me promotion offers
+                </label>
+              </div>
+          
+              <div class="form-group">
+                <label>Password</label>
+                <input formControlName="password" type="password" class="form-control">
+              </div>
+          
+              <div class="form-group">
+                <label>Confirm Password</label>
+                <input [class.is-invalid]="registrationForm.errors && registrationForm.errors['misMatch']" formControlName="confirmPassword" type="password" class="form-control">
+                 <small class="text-danger" *ngIf="registrationForm.errors && registrationForm.errors['misMatch']">Password do not match</small>
+              </div>
+          
+            <div formGroupName="address">
+              <div class="form-group">
+                <label>City</label>
+                <input formControlName="city" type="text" class="form-control">
+              </div>
+          
+              <div class="form-group">
+                <label>State </label>
+                <input formControlName="state" type="text" class="form-control">
+              </div>
+          
+              <div class="form-group">
+                <label>Postal </label>
+                <input formControlName="postalCode" type="text" class="form-control">
+              </div>
+            </div>
+          
+              <!-- <button [disabled]='!registrationForm.valid' class="btn btn-primary" type="submit">Register</button>
+              <button (click)="loadApiData()" class="btn btn-secondary ml-2" type="button">Load API Data</button>
+              <button (click)="onReset()" class="btn btn-secondary ml-2" type="button">Reset</button> -->
+              
+            </form>
+            
+          </div>
+          
+          
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" *ngIf="showAdd" class="btn btn-primary" (click)= "postUserDetails()">ADD</button>
+          <button type="button" *ngIf=" showUpdate" class="btn btn-primary" (click)= "updateUserDetails()">UPDATE</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+    
