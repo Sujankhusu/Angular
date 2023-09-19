@@ -3,6 +3,7 @@ import { FormBuilder, Validators, AbstractControl, FormGroup, FormArray  } from 
 import { RegistrationService } from './registration.service';
 import { PasswordValidator } from './shared/password.validator';
 import { forbiddenNameValidator } from './shared/user-name.validator';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
 
   submitted = false;
 
-  constructor(private formBuilder: FormBuilder, private _registrationService: RegistrationService) {}
+  constructor(private formBuilder: FormBuilder, 
+              private _registrationService: RegistrationService,
+              private flexLayout: FlexLayoutModule) {}
 
   get f(): { [key: string]: AbstractControl } {
     return this.registrationForm.controls;

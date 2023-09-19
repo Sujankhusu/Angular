@@ -1,0 +1,24 @@
+
+  .cardList {
+    display: flex;
+    flex-direction: column;
+  }
+  /* Row Gap */
+  .cardList > *:not(:last-child) {
+    margin-bottom: 32px;
+  }
+  .child-1{
+    background-color: orange;
+    }
+    .child-2{
+    background-color: yellow;
+    }
+    .child-3{
+    background-color: green;
+    }
+    
+    .container{
+     margin: 15px;
+     height:200px;
+     border:2px solid red;
+    }

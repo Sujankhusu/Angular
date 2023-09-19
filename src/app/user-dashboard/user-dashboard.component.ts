@@ -185,13 +185,13 @@ ngOnInit(): void {
     this.showAdd=false;
     this.showUpdate = true;
     this.userModelObj.id =row.id;
-    this.registrationForm.controls['userName'].setValue(row.userName);
-    this.registrationForm.controls['email'].setValue(row.email);
-    this.registrationForm.controls['city'].setValue(row.city);
-    this.registrationForm.controls['state'].setValue(row.state);
-    this.registrationForm.controls['postalCode'].setValue(row.postalCode);
+    this.f['userName'].setValue(row.userName);
+    this.f['email'].setValue(row.email);
+    this.f['city'].setValue(row.city);
+    this.f['state'].setValue(row.state);
+    this.f['postalCode'].setValue(row.postalCode);
   }
-
+  
   updateUserDetails(){
     this.userModelObj.userName =this.registrationForm.value.userName;
     this.userModelObj.email =this.registrationForm.value.email;
